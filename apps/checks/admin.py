@@ -10,6 +10,16 @@ class CheckAttributeAdmin(NestedTabularInline):
 class CheckAdmin(admin.ModelAdmin):
     model = Check
     inlines = [ CheckAttributeAdmin ]
+    fieldsets  = (
+            (None, {
+                'fields' : [ 'label', 'check_type', 'check_interval', 'max_confirmations' ],
+                }),
+            )
+    list_display = [ 'label', 'check_type', 'check_interval', 'max_confirmations' ]
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        obj.save()
 
 class CheckTypeAttributeInline(NestedTabularInline):
     model = CheckTypeAttribute

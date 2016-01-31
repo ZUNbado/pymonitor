@@ -17,6 +17,13 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('label', models.CharField(max_length=255)),
+                ('check_interval', models.IntegerField(default=60)),
+                ('status', models.CharField(max_length=20)),
+                ('last_checked', models.DateTimeField()),
+                ('max_confirmations', models.IntegerField(default=3)),
+                ('confirmations', models.IntegerField()),
+                ('lock', models.CharField(max_length=16)),
+                ('last_locked', models.DateTimeField()),
             ],
         ),
         migrations.CreateModel(
@@ -47,7 +54,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='checkattribute',
             name='check_type_attribute',
-            field=models.ForeignKey(to='checks.CheckType'),
+            field=models.ForeignKey(to='checks.CheckTypeAttribute'),
         ),
         migrations.AddField(
             model_name='check',

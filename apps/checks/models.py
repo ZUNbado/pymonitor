@@ -19,6 +19,13 @@ class Check(models.Model):
     label = models.CharField(max_length=255)
     check_type = models.ForeignKey(CheckType)
     user = models.ForeignKey(User)
+    check_interval = models.IntegerField(default=60)
+    status = models.CharField(max_length=20, blank=True, null=True)
+    last_checked = models.DateTimeField(blank=True, null=True)
+    max_confirmations = models.IntegerField(default=3)
+    confirmations = models.IntegerField(blank=True, null=True)
+    lock = models.CharField(max_length=16, blank=True, null=True)
+    last_locked = models.DateTimeField(blank=True, null=True)
 
     def __unicode__(self): return u'%s' % self.label
 
